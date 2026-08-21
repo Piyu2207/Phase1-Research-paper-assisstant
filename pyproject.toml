@@ -1,0 +1,25 @@
+[project]
+name = "phase1-research-paper-digest-rag"
+version = "0.1.0"
+description = "Citation-grounded RAG assistant for research papers"
+readme = "README.md"
+authors = [
+    { name = "priyankargame-at-744612070013", email = "priyankarajani22@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "faiss-cpu>=1.15.0",
+    "fastapi>=0.141.1",
+    "langchain>=1.3.15",
+    "langchain-community>=0.4.2",
+    "langchain-google-genai>=4.3.4",
+    "langchain-text-splitters>=1.1.2",
+    "pymupdf>=1.28.2",
+    "pypdf>=6.16.1",
+    "pytest>=9.1.1",
+    "python-dotenv>=1.2.2",
+    "ragas>=0.4.3",
+    "sentence-transformers>=5.7.0",
+    "streamlit>=1.61.1",
+    "uvicorn>=0.52.3",
+]
