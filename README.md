@@ -97,7 +97,7 @@ streamlit run frontend/app.py
 
 Open the Streamlit URL, upload `data/papers/attention-is-all-you-need.pdf`, click **Build / Replace Index**, then ask questions.
 
-## Demo questions for the viva
+## Demo questions
 
 1. **Single fact:** What architecture is introduced in the paper?
 2. **Multi-part:** What is the Transformer architecture and how does it compare with recurrent neural networks?
@@ -176,4 +176,4 @@ Response contains:
 
 ## Phase 1 scope
 
-This project intentionally stays within single-source RAG. Multi-source hybrid search, GraphRAG, Text-to-SQL, multi-agent orchestration, and production observability/caching are not implemented because they are outside Phase 1 scope. fileciteturn0file0L55-L58
+This project intentionally stays within single-source RAG. Multi-source hybrid search, GraphRAG, Text-to-SQL, multi-agent orchestration, and production observability/caching are not implemented because they are outside Phase 1 scope.
