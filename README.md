@@ -26,39 +26,45 @@ The assignment specifically requires retrieval to change with different question
 ## Architecture
 
 ```text
-                    ┌──────────────────────┐
-                    │   Streamlit Frontend │
-                    └──────────┬───────────┘
-                               │ HTTP
-                    ┌──────────▼───────────┐
-                    │      FastAPI API     │
-                    └───────┬───────┬──────┘
-                            │       │
-                  /ingest   │       │ /query
-                            │       │
-             ┌──────────────▼┐   ┌──▼─────────────────┐
-             │ PDF + Chunking│   │ Query Router       │
-             │ page metadata │   │ + decomposition    │
-             └───────┬───────┘   └─────────┬───────────┘
-                     │                     │
-             ┌───────▼────────┐            │
-             │ Local Embedding│            │
-             └───────┬────────┘            │
-                     ▼                     ▼
-             ┌───────────────┐     ┌───────────────────┐
-             │ FAISS top-N    │────► Cross-Encoder     │
-             │ retrieval      │     │ re-ranking top-K  │
-             └───────────────┘     └─────────┬─────────┘
-                                             │
-                                      ┌──────▼──────┐
-                                      │ LCEL + Gemini│
-                                      └──────┬──────┘
-                                             │
-                                      answer + sources
-                                             │
-                                      ┌──────▼──────┐
-                                      │ RAGAS + JSONL│
-                                      └─────────────┘
+                 ┌──────────────────────┐
+                 │     Streamlit UI     │
+                 │    frontend/app.py   │
+                 └──────────┬───────────┘
+                            │ HTTP
+                            ▼
+                 ┌──────────────────────┐
+                 │      FastAPI         │
+                 │   backend/api/main   │
+                 └──────────┬───────────┘
+                            │
+              ┌─────────────┴─────────────┐
+              │                           │
+           INGEST                       QUERY
+              │                           │
+              ▼                           ▼
+       PDF Loader/Chunker          Query Router
+              │                           │
+              ▼                           ▼
+       Sentence Transformer       Query decomposition
+              │                           │
+              ▼                           ▼
+            FAISS                 FAISS retrieval
+              │                           │
+              │                           ▼
+              │                    Cross Encoder
+              │                     Reranking
+              │                           │
+              └──────────────┐            ▼
+                             │      Top relevant chunks
+                             │            │
+                             │            ▼
+                             │       Context builder
+                             │            │
+                             │            ▼
+                             │        Gemini LLM
+                             │            │
+                             │            ▼
+                             └──────► Answer + sources
 ```
 
 ## Fastest local setup
